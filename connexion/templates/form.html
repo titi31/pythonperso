@@ -1,0 +1,80 @@
+<!DOCTYPE html><!-- essentiel pour ecrire du html -->
+<html><!-- indique commencement du code html-->
+	<head><!-- indique la tête du html-->
+		<title>le facebook de timothé</title><!-- indique le titre de l'onglet -->
+		<meta charset="utf-8"><!-- indique que l'encode est en utf-8 donc que les caracteres accentués sont autoriser -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.2/axios.js"></script><!-- importe axios -->
+		<script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script><!-- importe vuejs -->
+	</head><!-- fermeture de la tête du html -->
+	<body><!-- indique le corps du html -->
+{% raw %}<!-- indique a jinja que ce qui est entre accolade est une variable et pas du code jinja -->
+		<div id="app"><!-- boite qui a pour id app -->
+			<form  action="javascript: void(0);" name="form" method="GET" @submit="bon_login" onsubmit="location.reload();"  ><!-- formulaire qui n'a pas d'action qui a pour nom form et pour method get 
+				et le submit envoi vers une fonction et le submit recharge la page -->
+				<label>login:</label><input v-model="login"><!-- l'utilisateur doit taper son login -->
+				<label>password:</label><input type="password" v-model="password"><!-- l'utilisateur doit taper son mot de passe -->
+				<input type="submit" value="ok"><!-- bouton pour executer formulaire -->
+			</form><!-- fermeture du formulaire --> 
+					<button @click="requete">GET</button><!-- bouton qui envoie vers une fonction qui affiche les donnee du json -->
+						<form  action="javascript:void(0);" @submit="changer"><ul><li v-html="html" ></li></ul><input id="ok" style="display:none;" type="submit" value="ok"></form>
+					<!-- formulaire qui n'a pas d'action et qui a un bouton qui envoie vers la fonction changer et a l'interieur de la liste il y a un v-html qui affiche les resultat de la fonction requete
+					puis le bouton du formulaire qui est invisible tant que l'utilisateur n'a pas appuyer sur le bouton get -->	
+				</div><!-- fermeture de la boite app -->
+		<script><!-- debut du javascript -->
+			var vm=new Vue({ //declaration de vuejs
+			el: '#app',//execute l'element qui a pour id app
+			data:{//mes variable
+				login:"",//pour indiquer ce que l'utilisateur a mis en login 
+				password:"",//ce que l'utilisateur a taper en password
+				donnee: "",//reponce de la requete 
+				html:"",//ce qui s'affiche quand l'utilisateur appuie sur le bouton get une fois connecter
+			},//fermeture de data
+			methods: {//pour executer mes fonction
+				bon_login: function (){//fonction executer quand on appuie sur le bouton du formulaire pour se connecter
+					axios//utilisation de axios
+						.post('http://localhost:5000/login',{data:{login:vm.login,password:vm.password}})//requete post a l'url indiquer
+						.then(	function(response){//fonction pour indiquer la reponce
+									console.log(response);//indique la reponce dans la console de debogage javascript
+								}//fermeture de la fonction de reponce axios
+							 )//fermeture de axios
+				},//fermeture de la fonction bon_login
+				requete: function (){//execute fonction requete
+					axios//execute axios
+						.get('http://localhost:5000/json')//requete get a l'url indiquer
+						.then(	function (response){//fonction pour indiquer la reponce a la requete
+									vm.donnee=response.data;//mettre la reponse dans la variable donnee
+									function iterateAttributesAndFormHTMLLabels(o){//fonction qui parcours le json
+											var json='';//json est pour afficher mon json
+											for(var a in o){//boucle qui parcours le json
+												if (typeof o[a] == 'object'){//verifie si la valeur est un object
+													json+="<ul><li><label class='text'>"+a+"</label></li></ul>";//ajoute a json la cle dans une liste et definit la cle comme un label
+													json=json.replace(parseInt(a),"");//supprime les entiers
+													json+="<ul><li>"+iterateAttributesAndFormHTMLLabels(o[a])+"</li></ul>";//ajoute a json la repetition de boucle for dans une liste permet d'eviter de repeter
+													// for
+												}//fermeture de la condition
+												else{//verifie si la valeur n'est pas un object
+													json+='<label class="text">'+a+'</label><input class="text"  name="text"  value='+o[a]+'></li>';//ajoute a json la cle en tant que label et la valeur dans un
+													//champs texte
+												}//fermeture de la contion
+											}//fermeture de la boucle
+											document.getElementById("ok").style.display="block";//bouton du formulaire devient visible 
+											return json;//affiche le json
+										}//fermeture de la fonction de recursivité
+										vm.html = iterateAttributesAndFormHTMLLabels(vm.donnee);//ajoute la fonction dans la variable html
+								}	//fermeture de la fonction de reponce de axios	
+						)//fermeture axios
+				},//fermeture de la fonction requete
+				changer: function (){//execute la fonction changer
+						var reponce=vm.donnee;//enregistre le json dans la variable reponce
+						axios//execute axios
+							.post('http://localhost:5000/change',{data:p})//requete post a l'url indiquer et envoie les donnees du fichier json au serveur
+							.then( function (response){//fonction qui indique la reponce de la requete
+									console.log(response.data);//affiche la reponce dans la console de debogage javascript
+								})//fermeture axios
+						}//fermeture fonction changer
+					}//fermeture de methods(des fonctions vuejs)
+		});//fermeture de vuejs
+		</script><!-- fin du code javascript -->
+{% endraw %}<!-- fin du code raw de jinja -->
+	</body><!-- fermeture du corps html -->
+</html><!-- fermeture du code html -->

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <meta charset="utf-8">
+   
+    <title>Test vue.js</title>
+   	
+  </head>
+<body>
+	<h1 id="d">jardin de reve de maxime</h1>
+	<div id="fenetre"></div>
+	<button id="fleur" onclick="ajout_fleur();">fleur</button>
+
+
+
+
+
+	<script>
+		var fenetre=document.getElementById("fenetre");
+		fenetre.style.width="500px";
+		fenetre.style.height="500px";
+		fenetre.style.background="green";
+		var tp=[];
+		function ajout_fleur(){
+			console.log("ajout fleur");
+			var fleur=document.createElement("div");
+			var plante={};
+			fleur.style.width="3px";
+			plante.taille=2;
+			fleur.style.background="red";
+			fleur.style.float="left";
+			fleur.style.margin="5px";
+			fenetre.appendChild(fleur);
+			tp.push(plante);	
+		};
+		var td=fenetre.childNodes;
+		
+		var i=2;
+		
+		//function increment(){i=i+2};
+		function main () {
+			
+			//var increment=setInterval("increment()",1000);
+			i += 2;
+			
+			for (var div=0;div<td.length;div++){
+					tp[div].taille+=2;
+					//console.log(tableau);
+					console.log(tp[div].taille);	
+					td[div].style.height=tp[div].taille+"px";
+					if (tp[div].taille>=200){
+						tp[div].taille=200;
+						
+				}				
+			}
+		};
+		setInterval("main()",1000);
+	</script>
+</body>
+</html>

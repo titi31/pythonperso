@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>test</title>
+		<meta charset="utf-8">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.2/axios.js"></script> 
+		<!-- <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>-->
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	</head>
+<style>
+
+</style>
+	
+	<body>
+{% raw %}
+		<script type="text/x-template" id="item-template">
+  <li>
+    <div
+      :class="{bold: isFolder}"
+      @click="toggle"
+      @dblclick="changeType">
+      {{Object.keys(model)}}
+      <span v-if="isFolder">[{{ open ? '-' : '+' }}]</span>
+    </div>
+    <ul v-show="open" v-if="isFolder">
+      <item 
+        class="item"
+        v-for="(model, index) in model"
+        :key="index"
+        :model="model">
+       
+      </item>
+      <li class="add" @click="addChild">+</li>
+    </ul>
+  </li>
+</script>
+
+<p>(You can double click on an item to turn it into a folder.)</p>
+
+<!-- the demo root element -->
+<ul id="demo">
+  <item
+    class="item"
+    :model="treeData">
+  </item>
+</ul>
+
+
+		<script>
+				var donnee=axios
+						.get('http://localhost:5000/json')
+						.then(	function (response){
+								var tab_outils = Object.keys(response.data);
+										for(var i=0; i < tab_outils.length; i++){
+										console.log(tab_outils[i]);}
+									
+									console.log(response.data);
+									
+									console.log(response);
+								
+									
+						
+				
+			
+				
+				
+				Vue.component('item',{
+				  template: '#item-template',
+				
+				props: {
+					model: Object
+				  },
+				
+				  data: function () {
+					
+					 
+					//if (typeof resp!='object'){
+						return {
+					  open: false}//}else{return{open: true}}
+					},
+				  computed: {
+					isFolder: function () {
+					  return this.model &&
+						this.model.length
+					}
+				  },
+				  methods: {
+					toggle: function () {
+					  if (this.isFolder) {
+						this.open = !this.open
+					  }
+					},
+					changeType: function () {
+					  if (!this.isFolder) {
+						Vue.set(this.model, 'element', [])
+						this.addChild()
+						this.open = true
+					  }
+					},
+					addChild: function () {
+					  this.model.push({
+						name: 'new stuff'
+					  })
+					}
+				  }
+				})
+
+			
+				var demo = new Vue({
+				  el: '#demo',
+				  data: {
+					
+					
+					treeData: response.data
+					
+				  }
+				})})
+
+</script>
+		
+{% endraw %}	
+	</body>
+</html>

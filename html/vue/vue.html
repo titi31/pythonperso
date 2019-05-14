@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <meta charset="utf-8">
+   
+    <title>Test vue.js</title>
+   	 <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+ 	 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.2/axios.js"></script>
+  </head>
+<body>
+
+<div id="app">
+
+	<div id="app">
+  		<button @click="action">coucou</button>
+    		<ul>
+    			<li v-for="(user,users) in donnee">{{ users }}={{user}}</li>
+ 		</ul>
+  		  
+	</div>
+
+	
+
+</div>
+
+<script>
+
+	var vm=new Vue({
+  		el: '#app',
+		data:{donnee:[]},
+ 		methods: {
+    			action: function (){
+				axios
+					.get('http://localhost:5000/toto')
+					.then(
+						function(response){
+							this.vm.donnee=response.data
+							console.log(this.vm.donnee)
+						}
+					)
+			}
+		}
+	});
+
+</script>
+
+
+
+</body>
+</html>

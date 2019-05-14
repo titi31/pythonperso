@@ -1,0 +1,16 @@
+<!DOCTYPE html><!-- essentiel pour ecrire du html -->
+<html lang="en"><!-- indique le code html et lang indique que c'est de l'anglais haaa l'horreur je comprend pas --> 
+<head><!-- indique la tête du html -->
+    <title>My Webpage</title><!-- titre de l'onglet -->
+</head><!-- fermeture de la tête -->
+<body><!-- indique corps du html -->
+    <ul id="navigation"><!-- liste non ordonnée avec pour id navigation --> 
+    {% for item in navigation %}<!-- boucle for sur la liste -->
+        <li><a href="{{ item.href }}">{{ item.caption }}</a></li><!-- consitituant de la liste qui contient des liens -->
+    {% endfor %}<!-- fin de la boucle -->
+    </ul><!-- fermeture de la liste -->
+    <h1>My Webpage</h1><!-- titre de la page -->
+    {{ a_variable }}<!-- variable coté jinja -->
+    {# a comment #}<!-- commentaire jinja -->
+</body><!-- fermeture du corps -->
+</html><!-- fermeture du code html -->

@@ -1,0 +1,38 @@
+<!DOCTYPE html><!--     essentiel pour indiquer que ces du html     -->
+<html><!-- c'est la que l'on place notre html -->
+	<head><!-- indique la tête du html -->
+		<title>choix</title><!-- titre de l'onglet  -->
+		<meta charset="utf-8">	<!--  indique que l'encodage est en utf-8 essentiel pour autoriser tous les caractères -->
+	</head><!-- fermeture de la tête important pour que le programme ne compte pas le reste du code dans la tête -->
+	<body><!-- indique le corps du programme la ou on met le côté qui sert au client -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.2/axios.js"></script> <!-- importe axios qui sert a faire des requete post ou get -->
+		<form  method="POST" onsubmit="verifieCocher(this)"><!-- formulaire qui fait une requete post submit est un bouton qui quand on appuie dessus envoie vers une fonction-->
+			<label>A</label><input type="checkbox" name="A"><!-- le label est l'etiquette qui indique a l'utilisateur ce que fait input ici input est un checkbox -->
+			<label>B</label><input type="checkbox" name="B"><!-- indique un autre checkbox qui est B biensur il y a input et label -->
+			<input type="submit" value="ok"><!-- bouton qui execute le formulaire en fonction de ce qu'a cocher l'utilisateur -->
+		</form><!-- indique la fermeture du formulaire donc le prochain code ne sera pas le formulaire -->
+		<script><!-- essentiel pour mettre du javascript -->
+			function verifieCocher(form){ //declaration d'une fonction qui s'appelle verifieCocher et qui a pour parametrele formulaire
+				if (form.A.checked==true){ //condition qui verifie si le checkbox A est cocher 
+					function (){ //declaration d'une fonction anonyme
+					axios// utilisation de axios pour faire une requete
+					.get('http://localhost:5000/cookie')//fait une requete get sur le site indiquer entre parenthese ici c'est mon localhost
+					.then( //pour inquer quel reponse on attend du serveur
+						function(response){ //fonction anonyme qui a pour parametre la  reponse du serveur
+							response.data; // doit indiquer la reponse du serveur
+				};//fermeture de la fonction de axios
+				if (form.B.checked==true){  //condition qui verifie si B est cocher
+					function (){ // fonction anonyme sans parametre
+					axios// declaration de axios
+					.get('http://localhost:5000/cookie') // requete get sur le site indique entre parenthese
+					.then(// fonction de axios pour indiquer la reponse du serveur
+						function(response){// fonction anonyme qui a pour parametre la reponce du serveur
+							response.data; // indiquer la reponce du serveur
+				};//fermeture de axios
+				if (form.B.checked===false && form.A.checked===false)//verifie si rien n'est coché
+				{alert('obliger de cocher');}// envoie une fenetre qui dit a l'utilisateur qu'il est obliger de cocher 
+			};//fermeture de la fonction du formulaire
+		</script><!-- indique la fin du code javascript -->
+	</body> <!-- fermeture du corps de la page html -->
+
+</html><!-- fermeture du html donc indique que apres il n'y a plus de html -->
