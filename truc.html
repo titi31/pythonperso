@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+ 
+<html lang="fr">
+     
+    <head>
+        <meta charset="utf-8" />
+        <title>Labyrinthe</title>
+       
+    </head>
+     
+    <body>
+        <h1>Labyrinthe</h1>
+         <table>
+            <tbody id="monLabyrinthe">
+            </tbody>
+         </table>
+         <script>
+			window.addEventListener("load", dessinerLabyrinthe);
+			    var laby = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0],
+            [0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0],
+            [0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0],
+            [0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0],
+            [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0],
+            [0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+            [0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0],
+            [0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0],
+            [0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+            [0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0],
+            [0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0],
+            [0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0],
+            [0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0],
+            [0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0],
+            [0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            ];
+			 
+function dessinerLabyrinthe(){
+
+    for (var i = 0; i < 20; i++){
+        var ligne = '<tr>';
+        for (var j = 0; j < 20; j++){
+            if (laby[i][j] == 1){
+                ligne += '<td></td>';
+            }
+            else if(laby[i][j]=='paul'){
+				ligne+='<td id="paul" style="position:relative;height:16px;width:16px;" bgcolor="red"></td>'
+				}
+			
+            
+            else{
+                ligne += '<td style="height:16px;width:16px;" bgcolor="black" alt=""></td>';
+            }
+        }
+        ligne +='</tr>';
+		
+        document.getElementById("monLabyrinthe").insertAdjacentHTML("beforeEnd", ligne);
+    }
+				
+}				var x=1;
+				var y=8;
+				
+				var paul = {x: 1, y: 8};
+				
+				laby[paul.x][paul.y]='paul';
+				console.log(laby[paul.x][paul.y]);
+				window.addEventListener('keydown', function(e) {
+					 	
+					
+					if(e.keyCode == 40){ // Bas
+						if(laby[paul.x+1][paul.y]==1){
+							laby[paul.x][paul.y]=1;
+						
+							 paul.x=paul.x + 1;
+							 
+		
+			 
+							console.log(paul.x);
+							console.log(laby[paul.x][paul.y]);
+						}
+						
+					}
+					if(e.keyCode == 38){ //Haut
+						if(laby[paul.x-1][paul.y]==1){
+							laby[paul.x][paul.y]=1;
+							paul.x=paul.x-1;
+							
+							laby[paul.x][paul.y]='paul';
+						}
+					
+					}
+					if(e.keyCode == 37){ //Gauche
+						if(laby[paul.x][paul.y-1]==1){
+							laby[paul.x][paul.y]=1;
+							paul.y=paul.y-1;
+								
+						
+						}
+					
+					}
+					if(e.keyCode == 39){ // Droite
+						if(laby[paul.x][paul.y+1]==1){
+							laby[paul.x][paul.y]=1;
+							paul.y=paul.y+1;
+							
+						
+						} 
+						
+					}
+					
+					
+					laby[paul.x][paul.y]='paul';
+					document.getElementById('monLabyrinthe').innerHTML="";
+					dessinerLabyrinthe();
+			
+					
+				});
+					
+				
+         </script>
+    </body>
+     
+</html>

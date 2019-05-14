@@ -1,0 +1,71 @@
+{
+
+  "element": "data", 
+
+  "ss-element": [
+
+    {
+
+      "element": "autre-type", 
+
+      "truc": [
+
+        {
+
+          "element": "bidule", 
+
+          "ss-element": []
+
+        }, 
+
+        {
+
+          "element": "chose", 
+
+          "ss-element": []
+
+        }
+
+      ]
+
+    }, 
+
+    {
+
+      "element": "type", 
+
+      "ss-element": [
+
+        {
+
+          "element": "machin", 
+
+          "ss-element": []
+
+        }, 
+
+        {
+
+          "element": "truc", 
+
+          "ss-element": [
+
+            {
+
+              "element": "ss-truc", 
+
+              "ss-element": []
+
+            }
+
+          ]
+
+        }
+
+      ]
+
+    }
+
+  ]
+
+}
